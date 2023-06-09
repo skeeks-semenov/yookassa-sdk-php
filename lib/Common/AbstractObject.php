@@ -66,7 +66,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
      * @param string $offset Имя проверяемого свойства
      * @return bool True если свойство имеется, false если нет
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset) : bool
     {
         $method = 'get' . ucfirst($offset);
         if (method_exists($this, $method)) {
@@ -84,7 +84,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
      * @param string $offset Имя свойства
      * @return mixed Значение свойства
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset) : mixed
     {
         $method = 'get' . ucfirst($offset);
         if (method_exists($this, $method)) {
@@ -102,7 +102,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
      * @param string $offset Имя свойства
      * @param mixed $value Значение свойства
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value) : void
     {
         $method = 'set' . ucfirst($offset);
         if (method_exists($this, $method)) {
@@ -121,7 +121,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
      * Удаляет свойство
      * @param string $offset Имя удаляемого свойства
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset) : void
     {
         $method = 'set' . ucfirst($offset);
         if (method_exists($this, $method)) {
@@ -200,7 +200,7 @@ abstract class AbstractObject implements \ArrayAccess, \JsonSerializable
      * Возвращает ассоциативный массив со свойствами текущего объекта для его дальнейшей JSON сериализации
      * @return array Ассоциативный массив со свойствами текущего объекта
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         $result = array();
         foreach (get_class_methods($this) as $method) {
